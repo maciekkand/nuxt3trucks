@@ -8,6 +8,7 @@ export const useCarsStore = defineStore('carsStore', {
     trucksCount: null,
     code: '',
     description: '',
+    queryString: '',
   }),
 
   actions: {
@@ -48,8 +49,6 @@ export const useCarsStore = defineStore('carsStore', {
     },
 
     filterTrucks(obj) {
-      console.log(obj)
-
       filterItems(obj)
         .then(res => this.cars = res.data.value)
         .catch(err => console.log(err))

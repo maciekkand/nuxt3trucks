@@ -3,7 +3,7 @@ import { useCarsStore } from '../stores/carsStore'
 
 const carsStore = useCarsStore()
 
-const showModal = ref(false)
+const showDeleteModal = ref(false)
 const showUpdateModal = ref(false)
 const currentTruckId = ref(null)
 const carId = ref(null)
@@ -24,7 +24,7 @@ function getTrucks(obj) {
 }
 
 function deleteTruck(carId) {
-  showModal.value = true
+  showDeleteModal.value = true
   currentTruckId.value = carId
 }
 
@@ -32,10 +32,10 @@ async function shouldDelete(isDelete) {
   if (isDelete) {
     await removeTruck(currentTruckId.value)
     carsStore.getTrucks({})
-    carsStore.filterTrucks({ code: carsStore.code })
+    carsStore.filterTrucks({ queryString: carsStore.queryString })
   }
 
-  showModal.value = false
+  showDeleteModal.value = false
 }
 
 function modifyTruck(car) {
@@ -50,7 +50,7 @@ function modifyTruck(car) {
 async function shouldUpdate(modifiedCar) {
   if (modifiedCar) {
     await updateTruck(modifiedCar.id, modifiedCar)
-    carsStore.filterTrucks({ code: carsStore.code })
+    carsStore.filterTrucks({ queryString: carsStore.queryString })
   }
 
   showUpdateModal.value = false
@@ -62,7 +62,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-[670px]">
+  <div class="relative min-h-[670px]">
     <header>
       <h1 class="hidden text-3xl font-semibold 2xl:flex 2xl:justify-center 2xl:my-4">
         Trucks
@@ -71,7 +71,7 @@ onMounted(() => {
 
     <div>
       <PopupModal
-        v-if="showModal"
+        v-if="showDeleteModal"
         message="Are you sure?"
         alt="delete-row-confirmation-modal"
         @should-delete="shouldDelete"

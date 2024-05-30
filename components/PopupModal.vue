@@ -11,7 +11,7 @@ function shouldDelete(isDelete) {
 </script>
 
 <template>
-  <div class="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
+  <div class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 h-full">
     <div class="p-8 ml-48 bg-white">
       <div class="flex justify-center">
         <h3 class="text-2xl">

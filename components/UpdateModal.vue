@@ -74,9 +74,6 @@ function shouldUpdate(shouldUpdate) {
   if (!newStatus)
     alertMessage.value = `Please fill in the 'Status' field`
 
-  if (!newDescription)
-    alertMessage.value = `Please fill in the 'Description' field`
-
   if (alertMessage.value)
     return displayAlert('error', alertMessage.value)
 
@@ -93,7 +90,7 @@ function shouldUpdate(shouldUpdate) {
 </script>
 
 <template>
-  <div class="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 -mt-28">
+  <div class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 -mt-28">
     <div class="flex flex-col gap-3 p-8 ml-48 bg-white">
       <h1 class="flex justify-center text-2xl">
         {{ message }}

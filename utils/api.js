@@ -62,18 +62,24 @@ export function updateTruck(id, obj) {
 }
 
 export function filterItems(obj) {
-  console.log(obj)
+  const carsStore = useCarsStore()
+  let finalQueryString = ''
 
-  const queryString = String(new URLSearchParams(obj))
+  if (obj.queryString) {
+    finalQueryString = obj.queryString
+  }
+  else {
+    const queryString = String(new URLSearchParams(obj))
 
-  let finalQueryString = queryString
-    .replace('code', 'code_like')
-    .replace('brand', 'brand_like')
-    .replace('description', 'description_like')
+    finalQueryString = queryString
+      .replace('code', 'code_like')
+      .replace('brand', 'brand_like')
+      .replace('description', 'description_like')
 
-  finalQueryString = `${finalQueryString}&_sort=id&_order=ASC`
+    finalQueryString = `${finalQueryString}&_sort=id&_order=ASC`
+  }
 
-  console.log('%c finalQueryString = ' + finalQueryString, 'color: aqua')
+  carsStore.queryString = finalQueryString
 
   return useFetch(`${BASE_URL}/trucks?${finalQueryString}`)
 }
